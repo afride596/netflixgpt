@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import validateEmailAndPassword from "../utils/validateEmailAndPassword";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSign, setisSign] = useState(true);
   const [pprotected, setpprotected] = useState(true);
+  // eslint-disable-next-line no-unused-vars
+  const [succesmessage, setsuccesmessage] = useState(null);
+  const [errorMessage, seterrorMessage] = useState();
+  const FullName = useRef(null);
+  const Email = useRef(null);
+  const Password = useRef(null);
 
   const handleonpress = () => {
     setisSign(!isSign);
@@ -11,12 +20,75 @@ const Login = () => {
   const HandleEncrpyt = () => {
     setpprotected(!pprotected);
   };
+  const handlebutton = () => {
+    // alert("Button clicked")
+    // console.log(Email)
+    const message = validateEmailAndPassword(
+      FullName.current?.value,
+      Email.current?.value,
+      Password.current?.value
+    );
+    console.log(message);
+
+    seterrorMessage(message);
+
+    if (message) return;
+
+    if (message === null) {
+      if (!isSign) {
+        createUserWithEmailAndPassword(
+          auth,
+          Email?.current?.value,
+          Password?.current?.value
+        )
+          .then((userCredential) => {
+            // Signed up
+            const user = userCredential.user;
+            console.log("heloo");
+
+           
+            setsuccesmessage(
+              "Your account has been created successfully. Please log in to continue."
+            );
+            setTimeout(() => {
+              setisSign(true);
+              setsuccesmessage(null)
+            }, 1000);
+
+            console.log(user);
+
+            // ...
+          })
+          .catch((error) => {
+            // eslint-disable-next-line
+            const errorCode = error.code;
+            // eslint-disable-next-line
+            const errorMessage = error.message;
+            if (errorCode === "auth/email-already-in-use") {
+              seterrorMessage(
+                "This email is already registered. Please use a different email or log in."
+              );
+              
+            } else {
+              seterrorMessage(errorMessage);
+              setTimeout(() => {
+                seterrorMessage(null);
+              }, 5000);
+            }
+            // ..
+          });
+      } else {
+      }
+    } else {
+      return;
+    }
+  };
   return (
     <div className="">
       <Header />
-      <div className="absolute w-[100%] -z-10">
+      <div className="absolute  z-0">
         <img
-          className="w-[100%] "
+          className=" w-screen h-screen object-cover "
           src="https://assets.nflxext.com/ffe/siteui/vlv3/bfc0fc46-24f6-4d70-85b3-7799315c01dd/web/IN-en-20240923-TRIFECTA-perspective_74e21c19-980e-45ef-bd6c-78c1a6ce9381_small.jpg"
           alt="logingBacgroundpage"
         />
@@ -25,7 +97,10 @@ const Login = () => {
         className="flex justify-center
       items-center h-screen "
       >
-        <form className="relative top text-white opacity-85 rounded-md  h-[80%] w-[450px] bg-black h-44    flex flex-col ">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="relative top text-white opacity-85 rounded-md  h-[80%] w-[450px] bg-black    flex flex-col "
+        >
           <div className="flex flex-col relative  top-28 items-center">
             <h1 className="absolute left-20  -top-10 font-bold text-4xl ">
               {isSign === true ? "Sign In" : "Sign up"}
@@ -34,26 +109,40 @@ const Login = () => {
               ""
             ) : (
               <input
-                className="p-3 w-72  m-6 rounded-sm bg-gray-800 text-white  m-3"
+                ref={FullName}
+                className="p-3 w-72  my-6 rounded-sm bg-gray-800 text-white  "
                 type="text"
                 placeholder="Full Name"
               />
             )}
             <input
-              className="p-3 w-72 bg-gray-800 rounded-sm text-white  m-3"
+              ref={Email}
+              className="p-3 w-72 bg-gray-800 rounded-sm text-white  m-4"
               type="Email"
               placeholder="Email"
             />
             <input
-              className="p-3 bg-slate-800 rounded-sm text-white w-72 m-7"
+              ref={Password}
+              className="p-3 bg-slate-800 rounded-sm text-white w-72 mt-4 mb-1"
               type="password"
               name=""
               id=""
               placeholder="Password"
             />
+            <p className="text-red-600 text-sm font-medium my-2 w-72">
+              {errorMessage === null ? (
+                <div className="text-green-500  rounded-sm text-base">
+               {succesmessage}
+                </div>
+              ) : (
+                errorMessage
+              )}
+            </p>
+
             <button
               className="bg-red-600 rounded-sm px-[117px] py-3"
               type="submit"
+              onClick={handlebutton}
             >
               {isSign === true ? "Sign In" : "Sign up"}
             </button>

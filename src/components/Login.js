@@ -1,8 +1,15 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import validateEmailAndPassword from "../utils/validateEmailAndPassword";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { addUser } from "../utils/userslice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isSign, setisSign] = useState(true);
@@ -10,6 +17,8 @@ const Login = () => {
   // eslint-disable-next-line no-unused-vars
   const [succesmessage, setsuccesmessage] = useState(null);
   const [errorMessage, seterrorMessage] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const FullName = useRef(null);
   const Email = useRef(null);
   const Password = useRef(null);
@@ -34,7 +43,7 @@ const Login = () => {
 
     if (message) return;
 
-    if (message === null) {
+    if (!message) {
       if (!isSign) {
         createUserWithEmailAndPassword(
           auth,
@@ -44,15 +53,28 @@ const Login = () => {
           .then((userCredential) => {
             // Signed up
             const user = userCredential.user;
-            console.log("heloo");
+            updateProfile(user, {
+              displayName: FullName.current?.value,
+            })
+              .then(() => {
+                
+                // Profile updated!
+                // ...
+              })
+              .catch((error) => {
+                // An error occurred
+                seterrorMessage(error.message);
+                // ...
+              });
 
-           
+            // console.log("heloo");
+
             setsuccesmessage(
               "Your account has been created successfully. Please log in to continue."
             );
             setTimeout(() => {
               setisSign(true);
-              setsuccesmessage(null)
+              setsuccesmessage(null);
             }, 1000);
 
             console.log(user);
@@ -68,7 +90,6 @@ const Login = () => {
               seterrorMessage(
                 "This email is already registered. Please use a different email or log in."
               );
-              
             } else {
               seterrorMessage(errorMessage);
               setTimeout(() => {
@@ -78,6 +99,42 @@ const Login = () => {
             // ..
           });
       } else {
+        signInWithEmailAndPassword(
+          auth,
+          Email?.current?.value,
+          Password?.current?.value
+        )
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user);
+            const { uid, email, displayName } = user;
+                dispatch(
+                  addUser({
+                    uid: uid,
+                    email:email,
+                    displayName:displayName
+                  })
+                );
+            navigate("/browse");
+            
+
+            // ...
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-unused-vars
+            const errorCode = error.code;
+            // eslint-disable-next-line no-unused-vars
+            const errorMessage = error.message;
+            if (errorCode === "auth/user-not-found") {
+              seterrorMessage("No account found with this email address.");
+            } else {
+              seterrorMessage("Invalid email or password. Please try again.");
+              setTimeout(() => {
+                seterrorMessage(null);
+              }, 5000);
+            }
+          });
       }
     } else {
       return;
@@ -132,7 +189,7 @@ const Login = () => {
             <p className="text-red-600 text-sm font-medium my-2 w-72">
               {errorMessage === null ? (
                 <div className="text-green-500  rounded-sm text-base">
-               {succesmessage}
+                  {succesmessage}
                 </div>
               ) : (
                 errorMessage

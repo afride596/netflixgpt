@@ -8,8 +8,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { addUser } from "../utils/userslice";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { PROFIL_LOGO } from "../utils/constant";
 
 const Login = () => {
   const [isSign, setisSign] = useState(true);
@@ -18,7 +18,6 @@ const Login = () => {
   const [succesmessage, setsuccesmessage] = useState(null);
   const [errorMessage, seterrorMessage] = useState();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const FullName = useRef(null);
   const Email = useRef(null);
   const Password = useRef(null);
@@ -37,7 +36,7 @@ const Login = () => {
       Email.current?.value,
       Password.current?.value
     );
-    console.log(message);
+    // console.log(message);
 
     seterrorMessage(message);
 
@@ -77,7 +76,7 @@ const Login = () => {
               setsuccesmessage(null);
             }, 1000);
 
-            console.log(user);
+            // console.log(user);
 
             // ...
           })
@@ -107,7 +106,7 @@ const Login = () => {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            console.log(user);
+            // console.log(user);
             const { uid, email, displayName } = user;
                 dispatch(
                   addUser({
@@ -116,7 +115,7 @@ const Login = () => {
                     displayName:displayName
                   })
                 );
-            navigate("/browse");
+            // navigate("/browse");
             
 
             // ...
@@ -146,7 +145,7 @@ const Login = () => {
       <div className="absolute  z-0">
         <img
           className=" w-screen h-screen object-cover "
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/bfc0fc46-24f6-4d70-85b3-7799315c01dd/web/IN-en-20240923-TRIFECTA-perspective_74e21c19-980e-45ef-bd6c-78c1a6ce9381_small.jpg"
+          src={PROFIL_LOGO}
           alt="logingBacgroundpage"
         />
       </div>

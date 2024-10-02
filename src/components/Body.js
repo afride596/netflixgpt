@@ -20,7 +20,7 @@ const Body = () => {
 
 
   return (
-    <div className="merarouting">
+    <div className=" ">
       <RouterProvider router={appRouter} />
     </div>
   );

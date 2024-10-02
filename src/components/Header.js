@@ -52,9 +52,9 @@ const Header = () => {
       });
   };
   return (
-    <div className="absolute w-screen  z-10 bg-gradient-to-b from-black flex justify-between items-center ">
+    <div className="absolute   z-10 bg-gradient-to-b from-black flex justify-around items-center   ">
       <img
-        className="w-60"
+        className="w-48"
         src={LOGO_URL}
         alt=""
       />

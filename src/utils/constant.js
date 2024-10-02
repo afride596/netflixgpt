@@ -15,3 +15,4 @@ export const API_OPTIONS = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWNkZjQxMjM4NTFjM2VmOGU5NDljZDY3OGYyNjA4MSIsIm5iZiI6MTcyNzY1MDY1OC4wMDMxMzYsInN1YiI6IjY2ZjlkOTM3MTQwZmJmNmExYTVmOGVjOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.I4FPw2ampZlxQhT4QNVixSLzES9S5CK72ImVZGKl-g0",
   },
 };
+export const MOVIE_CARDS_CDN_URL ="https://image.tmdb.org/t/p/w500"

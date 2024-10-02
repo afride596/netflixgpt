@@ -8,10 +8,10 @@ const MainContainer = () => {
   if (movies === null) return;
 
   const mainMovie = movies[0];
-  console.log(mainMovie);
+  // console.log(mainMovie);
   const { original_title, overview ,id } = mainMovie;
   return (
-    <div className="overflow-hidden">
+    <div className=" w-[100vw]">
       <VideoTitle title={original_title} description={overview} />
       <VideoBack movieId={id} />
     </div>

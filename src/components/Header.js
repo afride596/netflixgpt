@@ -4,9 +4,13 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userslice";
-import { BACKGROUNDIMAGE_URL, LOGO_URL } from "../utils/constant";
+import { BACKGROUNDIMAGE_URL, LOGO_URL, PROFIL_LOGO } from "../utils/constant";
+import { toggleGptSearchView } from "../utils/Gptslice";
 const Header = () => {
   const dispatch=useDispatch();
+  const  GptSearchPageView =()=>{
+    dispatch(toggleGptSearchView())
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -52,21 +56,30 @@ const Header = () => {
       });
   };
   return (
-    <div className="absolute   z-10 bg-gradient-to-b from-black flex justify-around items-center   ">
+   <div className=" z-50 bg-gradient-to-b from-black flex justify-between items-center  w-screen bg-black h-16 px-28 fixed top-0 ">
       <img
         className="w-48"
         src={LOGO_URL}
         alt=""
       />
     {
-      user&&<div className=" flex pr-4 gap-2">
+     user&& <div className=" flex pr-4 gap-2 z-50 relative">
+      <div className="mr-10 flex">
+        <select name="" id="">
+          <option value="">Telugu</option>
+          <option value="">English</option>
+          <option value="">Hindi</option>
+        </select>
+
+      <button className="bg-purple-600 px-3 flex justify-center items-center rounded-md text-white " onClick={GptSearchPageView} >SearchGpt</button>
+      </div>
       <img
-        className="w-12 h-12 "
-        src={BACKGROUNDIMAGE_URL}
+        className="w-12 h-12 rounded-sm "
+        src={PROFIL_LOGO}
         alt=""
       />
       
-      <button className="font-medium text-white" onClick={handlesignout}>
+      <button className="font-medium bg-rose-600 shadow-2xl px-5 rounded-md  text-white" onClick={handlesignout}>
         {"signout"}
       </button>
       

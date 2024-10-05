@@ -8,18 +8,28 @@ import usePopular from "../Hooks/usePopular";
 import useTopRated from "../Hooks/useTopRated";
 import useTrending from "../Hooks/useTrending";
 import useUpcoming from "../Hooks/useUpcoming";
+import { useSelector } from "react-redux";
+
+import GptSearchWindow from "./GptSearchWindow";
 const Browse = () => {
+  const showGptView = useSelector((store) => store.gpt.showGptView);
   useNowPlayingMovies();
   usePopular();
   useTopRated();
   useTrending();
-  useUpcoming()
+  useUpcoming();
   return (
     <div>
-      <div className="w-[1920px] scroll-smooth">
+      <div className=" scroll-smooth">
         <Header />
-        <MainContainer />
-        <SecondaryContainer />
+        {showGptView ? (
+          <GptSearchWindow />
+        ) : (
+          <>
+            <MainContainer />
+            <SecondaryContainer />
+          </>
+        )}
       </div>
     </div>
   );

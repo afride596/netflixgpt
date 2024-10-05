@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { addUser } from "../utils/userslice";
 import { useDispatch } from "react-redux";
-import { PROFIL_LOGO } from "../utils/constant";
+import { BACKGROUNDIMAGE_URL, PROFIL_LOGO } from "../utils/constant";
 
 const Login = () => {
   const [isSign, setisSign] = useState(true);
@@ -145,7 +145,7 @@ const Login = () => {
       <div className="absolute  z-0">
         <img
           className=" w-screen h-screen object-cover "
-          src={PROFIL_LOGO}
+          src={BACKGROUNDIMAGE_URL}
           alt="logingBacgroundpage"
         />
       </div>

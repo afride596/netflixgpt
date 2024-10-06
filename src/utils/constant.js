@@ -16,3 +16,6 @@ export const API_OPTIONS = {
   },
 };
 export const MOVIE_CARDS_CDN_URL ="https://image.tmdb.org/t/p/w500"
+
+// export const OPEN_API_KEY="sk-jyuhI8hhjda_JCg0PHtyOEHiOT4trPia0hj5Buf3UdT3BlbkFJKc5RXMaMwwqNgnU4BLNAvHmtSLgZtSH3GpDuUzCOIA"
+export const GEMINIS_API_KEY="sk-AIzaSyAyOzIokj-Rbr_5M9sWXYvqdU4zzpBzgTc"

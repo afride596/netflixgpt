@@ -9,7 +9,7 @@ const SecondaryContainer = () => {
   return (
     <div className="  ">
       <div className="relative  text-white bg-black w-screen    ">
-        <div className="  relative  mx-5   -top-56 ">
+        <div className="  relative  md:mx-5 -top-32  md:-top-56 ">
           <div>
             <Moviecontainer
               title={"Now Playing"}

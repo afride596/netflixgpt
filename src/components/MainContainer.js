@@ -11,7 +11,7 @@ const MainContainer = () => {
   // console.log(mainMovie);
   const { original_title, overview ,id } = mainMovie;
   return (
-    <div className=" w-screen">
+    <div className="">
       <VideoTitle title={original_title} description={overview} />
       <VideoBack movieId={id} />
     </div>

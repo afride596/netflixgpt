@@ -10,6 +10,7 @@ import {
 import { addUser } from "../utils/userslice";
 import { useDispatch } from "react-redux";
 import { BACKGROUNDIMAGE_URL, PROFIL_LOGO } from "../utils/constant";
+import LoginHeader from "./LoginHeader";
 
 const Login = () => {
   const [isSign, setisSign] = useState(true);
@@ -56,7 +57,6 @@ const Login = () => {
               displayName: FullName.current?.value,
             })
               .then(() => {
-                
                 // Profile updated!
                 // ...
               })
@@ -108,15 +108,14 @@ const Login = () => {
             const user = userCredential.user;
             // console.log(user);
             const { uid, email, displayName } = user;
-                dispatch(
-                  addUser({
-                    uid: uid,
-                    email:email,
-                    displayName:displayName
-                  })
-                );
+            dispatch(
+              addUser({
+                uid: uid,
+                email: email,
+                displayName: displayName,
+              })
+            );
             // navigate("/browse");
-            
 
             // ...
           })
@@ -140,8 +139,10 @@ const Login = () => {
     }
   };
   return (
-    <div className="">
+    <div className=" w-screen">
+
       <Header />
+      <LoginHeader />
       <div className="absolute  z-0">
         <img
           className=" w-screen h-screen object-cover "
@@ -151,13 +152,13 @@ const Login = () => {
       </div>
       <div
         className="flex justify-center
-      items-center h-screen "
+      items-center h-screen relative -top-10 md:-top-10 "
       >
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="relative top text-white opacity-85 rounded-md  h-[80%] w-[450px] bg-black    flex flex-col "
+          className="relative  text-white opacity-85 rounded-md  h-[80%] w-[450px] bg-black    flex flex-col "
         >
-          <div className="flex flex-col relative  top-28 items-center">
+          <div className="flex flex-col  relative  top-28 items-center">
             <h1 className="absolute left-20  -top-10 font-bold text-4xl ">
               {isSign === true ? "Sign In" : "Sign up"}
             </h1>

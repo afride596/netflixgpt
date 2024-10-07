@@ -20,7 +20,7 @@ const Browse = () => {
   useUpcoming();
   return (
     <div>
-      <div className=" scroll-smooth">
+      <div className=" scroll-smooth k">
         <Header />
         {showGptView ? (
           <GptSearchWindow />

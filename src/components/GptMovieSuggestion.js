@@ -8,7 +8,7 @@ const GptMovieSuggestion = () => {
   if(!movieResult) return null
   if (!movieName) return null;
   return (
-    <div className="p-4 m-4 relative top-48 bg-black bg-opacity-70 text-white">
+    <div className="md:p-4 md:m-4 relative top-40 md:top-32 bg-black bg-opacity-50 md:bg-opacity-70 text-white">
       <div>
         {movieName.map((movieName, index) => (
           <Moviecontainer

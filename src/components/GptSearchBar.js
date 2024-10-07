@@ -40,10 +40,9 @@ const GptSearchBar = () => {
 
   return (
     <div
-      className="  flex justify-center items-center relative top-20
+      className="  flex justify-center items-center relative top-36 md:top-20
   "
     >
-      <img src="" alt="" />
       <form
         className=" bg-white  shadow-2xl "
         action=""
@@ -51,12 +50,12 @@ const GptSearchBar = () => {
       >
         <input
           ref={searchText}
-          className=" outline-none w-[450px] rounded-md p-5 "
+          className=" outline-none text-black font-medium  w-[350px] px-4 md:px-3 md:w-[450px] rounded-md md:p-5 "
           type="text"
           placeholder={Lang[langKey].gptSearchplaceholder}
         />
         <button
-          className="p-5 bg-black text-white"
+          className=" p-4 md:p-5 bg-red-600 md:bg-black text-white"
           onClick={handleGptSearchBar}
         >
           {Lang[langKey].search}

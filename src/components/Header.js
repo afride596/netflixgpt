@@ -62,44 +62,50 @@ const Header = () => {
       });
   };
   return (
-    <div className=" z-50 bg-gradient-to-b from-black flex justify-between items-center  w-screen bg-black h-16 px-28 fixed top-0 ">
-      <img className="w-48" src={LOGO_URL} alt="" />
-      {user && (
-        <div className=" flex pr-4 gap-2 z-50 relative">
-          <div className="mr-10 flex ">
-            {showGptView && (
-              <select
-                name=""
-                className="outline-none px-4 rounded-lg bg-slate-700  text-white mr-4"
-                id=""
-                onChange={handleLanuageChange}
+    user && (
+      <div className=" z-50 bg-gradient-to-b from-black flex flex-col md:flex-row justify-between items-center  w-screen bg-black md:h-16 h-32 md:px-28 fixed md:fixed top-0 ">
+        <img className=" w-36 md:w-48" src={LOGO_URL} alt="" />
+        {user && (
+          <div className=" flex  pr-4 gap-2 z-50 relative">
+            <div className="  md:mr-10 flex  relative -top-5 md:top-0 ">
+              {showGptView && (
+                <select
+                  name=""
+                  className="outline-none px-4 rounded-lg bg-slate-700  text-white mr-4"
+                  id=""
+                  onChange={handleLanuageChange}
+                >
+                  {SupportedLang.map((lang) => (
+                    <option key={lang.identifier} value={lang.identifier}>
+                      {lang.name}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              <button
+                className="bg-purple-600 px-3 flex  md:justify-center items-center rounded-md text-white "
+                onClick={GptSearchPageView}
               >
-                {SupportedLang.map((lang) => (
-                  <option key={lang.identifier} value={lang.identifier}>
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
-            )}
+                {showGptView === false ? "SearchGpt" : "homepage"}
+              </button>
+            </div>
+            <img
+              className="md:w-10 object-cover hidden md:inline-block rounded-sm "
+              src={PROFIL_LOGO}
+              alt=""
+            />
 
             <button
-              className="bg-purple-600 px-3 flex justify-center items-center rounded-md text-white "
-              onClick={GptSearchPageView}
+              className="font-medium bg-rose-600 shadow-2xl p-3 md:p-0 md:px-5 relative -top-5 md:top-0 rounded-md  text-white"
+              onClick={handlesignout}
             >
-              {showGptView===false ? "SearchGpt" : "homepage"}
+              {"signout"}
             </button>
           </div>
-          <img className="w-12 h-12 rounded-sm " src={PROFIL_LOGO} alt="" />
-
-          <button
-            className="font-medium bg-rose-600 shadow-2xl px-5 rounded-md  text-white"
-            onClick={handlesignout}
-          >
-            {"signout"}
-          </button>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    )
   );
 };
 

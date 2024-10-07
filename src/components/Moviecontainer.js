@@ -1,10 +1,7 @@
 import React, { useRef } from "react";
 import MovieCards from "./MovieCards";
 const Moviecontainer = ({ title, movies }) => {
-  const scrollContainer = useRef(null);
-  const scrollRight = () => {
-    scrollContainer.scrollBy({ left: -300, behavior: "smooth" });
-  };
+ 
   if (movies === null) return;
   //   console.log(movies[0].poster_path);
 

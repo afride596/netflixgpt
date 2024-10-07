@@ -5,6 +5,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { API_OPTIONS } from "../utils/constant";
 import { addtmdbiMovie } from "../utils/Gptslice";
 import { useDispatch } from "react-redux";
+
+
 const genAI = new GoogleGenerativeAI("AIzaSyAyOzIokj-Rbr_5M9sWXYvqdU4zzpBzgTc");
 
 const GptSearchBar = () => {
@@ -38,23 +40,23 @@ const GptSearchBar = () => {
 
   return (
     <div
-      className="  flex justify-center items-center absolute top-20 left-[40%]
+      className="  flex justify-center items-center relative top-20
   "
     >
       <img src="" alt="" />
       <form
-        className=" bg-white  shadow-2xl"
+        className=" bg-white  shadow-2xl "
         action=""
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           ref={searchText}
-          className=" outline-none w-[400px] rounded-md px-2 py-2"
+          className=" outline-none w-[450px] rounded-md p-5 "
           type="text"
           placeholder={Lang[langKey].gptSearchplaceholder}
         />
         <button
-          className="px-2 py-3 bg-black text-white"
+          className="p-5 bg-black text-white"
           onClick={handleGptSearchBar}
         >
           {Lang[langKey].search}

@@ -17,7 +17,7 @@ const useMovieTrailer = (movieId) => {
     // console.log(trailer);
   };
   useEffect(() => {
-    getTrailervideo();
+    !trailerId && getTrailervideo();
   });
   return trailerId;
 };

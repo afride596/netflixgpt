@@ -6,9 +6,9 @@ import { BACKGROUNDIMAGE_URL } from "../utils/constant";
 const GptSearchWindow = () => {
   return (
     <div className="">
-        <img className=" absolute -z-50" src={BACKGROUNDIMAGE_URL} alt="" />
+        <img className=" fixed -z-50" src={BACKGROUNDIMAGE_URL} alt="" />
       <GptSearchBar />
-      <GptMovieSuggestion />
+      <GptMovieSuggestion/>
     </div>
   );
 };
